@@ -1,0 +1,28 @@
+---
+- name: Pull node-exporter Docker image
+  hosts: all
+  vars:
+    path: "/opt/docker/prometheus"
+  tasks:
+    - name: "Create {{ path }} directory"
+      ansible.builtin.file:
+        path: "{{ path }}"
+        state: directory
+
+    - name: Copy docker-compose.yml
+      ansible.builtin.copy:
+        src: docker-compose.yml
+        dest: "{{ path }}"
+
+    - name: Pull image
+      community.docker.docker_image_pull:
+        name: prom/node-exporter
+        tag: latest
+
+- name: Pull prometheus Docker image
+  hosts: prometheus
+  tasks:
+    - name: Pull image
+      community.docker.docker_image_pull:
+        name: prom/prometheus
+        tag: latest
