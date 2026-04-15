@@ -1,5 +1,5 @@
 ---
-- name: Pull node-exporter Docker image
+- name: Docker Compose setup
   hosts: targets
   vars:
     path: "/opt/docker/prometheus"
@@ -13,7 +13,7 @@
       community.docker.docker_compose_v2:
         project_src: "{{ path }}"
 
-- name: Pull prometheus Docker image
+- name: Docker Compose setup
   hosts: prometheus
   vars:
     path: "/opt/docker/prometheus"
