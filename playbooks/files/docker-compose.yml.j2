@@ -1,4 +1,5 @@
 services:
+{% if enable_prometheus_installation %}
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -11,6 +12,7 @@ services:
     networks:
       - monitoring
 
+{% endif %}
   node_exporter:
     image: prom/node-exporter:latest
     container_name: node_exporter

@@ -1,3 +1,4 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/docker_setup
+enable_prometheus_installation: false

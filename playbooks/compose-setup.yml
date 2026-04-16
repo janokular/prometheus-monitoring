@@ -1,27 +1,25 @@
 ---
 - name: Docker Compose setup
-  hosts: targets
+  hosts: all
   vars:
     path: "/opt/docker/prometheus"
   tasks:
+    # Check if ansible.builtin.template create path
+    - name: "Create {{ path }} directory"
+      ansible.builtin.file:
+        path: "{{ path }}"
+        state: directory
+
     - name: Copy docker-compose.yml
-      ansible.builtin.copy:
-        src: files/targets/
-        dest: "{{ path }}"
+      ansible.builtin.template:
+        src: files/docker-compose.yml.j2
+        dest: "{{ path }}/docker-compose.yml"
 
-    - name: Run docker compose
-      community.docker.docker_compose_v2:
-        project_src: "{{ path }}"
-
-- name: Docker Compose setup
-  hosts: prometheus
-  vars:
-    path: "/opt/docker/prometheus"
-  tasks:
-    - name: Copy docker-compose.yml and prometheus.yml
+    - name: Copy prometheus.yml
       ansible.builtin.copy:
-        src: files/prometheus/
+        src: files/prometheus.yml
         dest: "{{ path }}"
+      when: enable_prometheus_installation
 
     - name: Run docker compose
       community.docker.docker_compose_v2:
