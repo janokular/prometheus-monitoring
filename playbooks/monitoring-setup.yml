@@ -1,6 +1,7 @@
 ---
-- name: Setup Docker on Debian
+- name: Dockerized monitoring setup for Debian
   hosts: all
   roles:
     - docker_setup
     - prometheus_compose
+    - grafana_compose
