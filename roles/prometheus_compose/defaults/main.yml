@@ -1,0 +1,4 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for roles/prometheus_compose
+enable_prometheus_installation: false

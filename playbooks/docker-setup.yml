@@ -3,3 +3,4 @@
   hosts: all
   roles:
     - docker_setup
+    - prometheus_compose

@@ -36,23 +36,3 @@
     dest: /etc/docker/
   notify:
     - restart docker
-
-- name: "Creating {{ path }} directory"
-  ansible.builtin.file:
-    path: "{{ path }}"
-    state: directory
-
-- name: Copying docker-compose.yml
-  ansible.builtin.template:
-    src: docker-compose.yml.j2
-    dest: "{{ path }}/docker-compose.yml"
-
-- name: Copying prometheus.yml
-  ansible.builtin.copy:
-    src: prometheus.yml
-    dest: "{{ path }}"
-  when: enable_prometheus_installation
-
-- name: Running docker compose
-  community.docker.docker_compose_v2:
-    project_src: "{{ path }}"
