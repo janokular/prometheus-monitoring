@@ -2,3 +2,7 @@
 ---
 # vars file for roles/prometheus_compose
 path: /opt/docker/prometheus
+
+files:
+  - prometheus.yml
+  - alertmanager.yml

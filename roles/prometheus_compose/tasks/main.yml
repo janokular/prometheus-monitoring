@@ -11,10 +11,11 @@
     src: docker-compose.yml.j2
     dest: "{{ path }}/docker-compose.yml"
 
-- name: Copying prometheus.yml
+- name: Copying configuration files
   ansible.builtin.copy:
-    src: prometheus.yml
+    src: "{{ item }}"
     dest: "{{ path }}"
+  loop: "{{ files }}"
   when: enable_prometheus_installation
 
 - name: Running docker compose

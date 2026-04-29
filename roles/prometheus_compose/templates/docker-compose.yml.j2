@@ -12,6 +12,18 @@ services:
     networks:
       - monitoring
 
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager_data:/alertmanager
+    networks:
+      - monitoring
+
 {% endif %}
   node_exporter:
     image: prom/node-exporter:latest
@@ -28,3 +40,6 @@ networks:
 
 volumes:
   prometheus_data:
+{% if enable_prometheus_installation %}
+  alertmanager_data:
+{% endif %}
